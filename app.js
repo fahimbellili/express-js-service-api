@@ -11,6 +11,7 @@ const mongoClient = require('./config/db');
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const todoRouter = require('./routes/todo');
+const todoListRouter = require('./routes/todoList');
 
 mongoClient();
 mongoose.set('useCreateIndex', true);
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', userRouter);
 app.use('/', todoRouter);
+app.use('/', todoListRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
