@@ -4,13 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www",
-    "lint": "eslint --ext .js src/",
+    "lint": "eslint --ext .js bin/ controllers/ middlewares/ models/ routes/ wording/ app.js",
     "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": ""
+      "pre-commit": "npm run lint"
     }
   },
   "dependencies": {
