@@ -10,6 +10,7 @@ const logger = require('morgan');
 const mongoClient = require('./config/db');
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
+const todoRouter = require('./routes/todo');
 
 mongoClient();
 mongoose.set('useCreateIndex', true);
@@ -29,8 +30,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', indexRouter);
 app.use('/', userRouter);
+app.use('/', todoRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
