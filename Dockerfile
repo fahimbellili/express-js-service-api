@@ -7,13 +7,15 @@ EXPOSE 40000
 RUN mkdir /app && chown -R node:node /app
 WORKDIR /app
 USER node
-COPY --chown=node:node package.json package-lock*.json ./
 COPY --chown=node:node bin/ ./bin
 COPY --chown=node:node config ./config
 COPY --chown=node:node controllers ./controllers
-COPY --chown=node:node lib ./lib
-COPY --chown=node:node .env ./
-COPY --chown=node:node .eslintrc.json ./
+COPY --chown=node:node middlewares ./middlewares
+COPY --chown=node:node models ./models
+COPY --chown=node:node public ./public
+COPY --chown=node:node routes ./routes
+COPY --chown=node:node wording ./wording
+COPY --chown=node:node app.js package.json package-lock*.json ./
 RUN npm ci && npm cache clean --force
 
 FROM base as dev
