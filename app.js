@@ -1,13 +1,23 @@
-const createError = require('http-errors');
 const express = require('express');
-const path = require('path');
+const createError = require('http-errors');
+const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
 const logger = require('morgan');
 
+const mongoClient = require('./config/db');
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
+
+mongoClient();
+mongoose.set('useCreateIndex', true);
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'public/views'));
@@ -20,7 +30,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
