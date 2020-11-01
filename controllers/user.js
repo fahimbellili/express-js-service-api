@@ -28,32 +28,29 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (!user) {
-        return res.status(401).json({ error: userNotFound });
+exports.login = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(401).json({ error: userNotFound });
+    }
+    const isValid = await bcrypt.compare(req.body.password, user.password);
+    try {
+      if (!isValid) {
+        res.status(401).json({ error: badPassword });
       }
-      return bcrypt
-        .compare(req.body.password, user.password)
-        .then((valid) => {
-          if (!valid) {
-            return res.status(401).json({ error: badPassword });
-          }
-          return res.status(200).json({
-            // userId: user.id,
-            accessToken: jwt.sign(
-              { userId: user.id },
-              process.env.SECRET_TOKEN,
-              {
-                expiresIn: '24h',
-              }
-            ),
-          });
-        })
-        .catch((error) => res.status(500).json({ error }));
-    })
-    .catch((error) => res.status(500).json({ error }));
+      res.status(200).json({
+        // userId: user.id,
+        token: jwt.sign({ userId: user.id }, process.env.SECRET_TOKEN, {
+          expiresIn: '24h',
+        }),
+      });
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
 };
 
 exports.getCurrentUser = async (req, res) => {
@@ -65,29 +62,3 @@ exports.getCurrentUser = async (req, res) => {
     res.status(400).json({ error });
   }
 };
-// exports.login = async (req, res) => {
-//   // const user = { email: req.body.email };
-//   // User.findOne(user);
-//   try {
-//     const user = await User.findOne(req.body.email);
-//     if (!user) {
-//       res.status(401).json({ error: 'Utilisateur non toruvé !' });
-//     }
-//     const isValid = await bcrypt.compare(req.body.password, User.password);
-//     try {
-//       if (!isValid) {
-//         res.status(401).json({ error: 'Mot de passe incorrect !' });
-//       }
-//       res.status(200).json({
-//         userId: user.id,
-//         token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', {
-//           expiresIn: '24h',
-//         }),
-//       });
-//     } catch (error) {
-//       res.status(500).json({ error });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// };
