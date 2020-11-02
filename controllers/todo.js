@@ -1,70 +1,29 @@
 const Todo = require('../models/Todo');
 
 const {
-  objectCreationSuccess,
-  objectUpdateSuccess,
-  objectDeleteSuccess,
-} = require('../wording/wording');
+  createElement,
+  updateElement,
+  deleteElement,
+  getOneElement,
+  getAllElements,
+} = require('./baseController');
 
-exports.createTodo = async (req, res) => {
-  try {
-    // const todoObject = JSON.parse(req.body);
-    const todoObject = req.body;
-    delete todoObject.id;
-    const todo = new Todo({ ...todoObject });
-    try {
-      await todo.save();
-      res.status(201).json({ message: objectCreationSuccess });
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  } catch (error) {
-    res.status(422).json({ error });
-  }
+exports.createTodo = (res, req) => {
+  createElement(res, req, Todo);
 };
 
-exports.updateTodo = async (req, res) => {
-  const todoObject = req.body;
-  try {
-    await Todo.updateOne(
-      { _id: req.params.id },
-      { ...todoObject, _id: req.params.id }
-    );
-    return res.status(200).json({ message: objectUpdateSuccess });
-  } catch (error) {
-    return res.status(400).json({ error });
-  }
+exports.updateTodo = (req, res) => {
+  updateElement(req, res, Todo);
 };
 
-exports.deleteTodo = async (req, res) => {
-  try {
-    await Todo.findOne({ _id: req.params.id });
-    try {
-      await Todo.deleteOne({ _id: req.params.id });
-      res.status(200).json({ message: objectDeleteSuccess });
-    } catch (error) {
-      res.status(400).json({ error });
-    }
-  } catch (error) {
-    res.status(500).json({ error });
-  }
+exports.deleteTodo = (req, res) => {
+  deleteElement(req, res, Todo);
 };
 
-exports.todoGetOne = async (req, res) => {
-  try {
-    const todo = await Todo.findOne({ _id: req.params.id });
-    res.status(200).json(todo);
-  } catch (error) {
-    res.status(400).json({ error });
-  }
+exports.todoGetOne = (req, res) => {
+  getOneElement(req, res, Todo);
 };
 
-exports.todoGetAll = async (req, res) => {
-  const usrId = req.userId;
-  try {
-    const todos = await Todo.find({ userId: usrId });
-    res.status(200).json(todos);
-  } catch (error) {
-    res.status(400).json({ message: error });
-  }
+exports.todoGetAll = (req, res) => {
+  getAllElements(req, res, Todo);
 };
