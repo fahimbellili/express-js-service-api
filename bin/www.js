@@ -7,7 +7,7 @@
 require('dotenv/config');
 const debug = require('debug')('nodejs-todo-api:server');
 const http = require('http');
-const app = require('../app');
+const app = require('../lib/app');
 
 /**
  * Normalize a port into a number, string, or false.

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nodemon ./bin/www",
-    "lint": "eslint --ext .js bin/ controllers/ middlewares/ models/ routes/ wording/ app.js",
+    "lint": "eslint --ext .js bin/ lib/**/**",
     "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

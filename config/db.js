@@ -3,7 +3,7 @@ const mongooseClient = require('mongoose');
 const {
   dbConnectSuccessful,
   dbConnectNotSuccessful,
-} = require('../wording/wording');
+} = require('../lib/wording/wording');
 
 const mongoClient = async () => {
   try {
