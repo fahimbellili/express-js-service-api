@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-todo-api",
+  "name": "express-todo-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {

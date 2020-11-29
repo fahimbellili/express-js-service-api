@@ -5,7 +5,7 @@
  */
 
 require('dotenv/config');
-const debug = require('debug')('nodejs-todo-api:server');
+const debug = require('debug')('express-todo-api:server');
 const http = require('http');
 const app = require('../lib/app');
 
