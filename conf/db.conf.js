@@ -1,5 +1,7 @@
 const mongooseClient = require('mongoose');
 
+const debug = require('debug')('express-todo-api:server');
+
 const {
   dbConnectSuccessful,
   dbConnectNotSuccessful,
@@ -13,9 +15,9 @@ const mongoClient = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-    console.log(dbConnectSuccessful);
+    debug(dbConnectSuccessful);
   } catch (err) {
-    console.log(dbConnectNotSuccessful, '\n', err.stack);
+    debug(dbConnectNotSuccessful, '\n', err.stack);
   }
 };
 
