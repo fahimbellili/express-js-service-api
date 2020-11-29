@@ -6,10 +6,10 @@
 
     "todo_post_url": "/user/me/todo",
     "todo_put_del_get_url": "/user/me/todo/:id",
-    "todo_get_all_url": "/user/me/allTodos",
+    "todo_get_all_url": "/user/me/all-todos",
 
-    "todoList_post_url": "/user/me/todoList",
-    "todoList_put_del_get_url": "/user/me/todoList/:id",
-    "todoList_get_all_url": "/user/me/allTodoLists"
+    "todoList_post_url": "/user/me/todo-list",
+    "todoList_put_del_get_url": "/user/me/todo-list/:id",
+    "todoList_get_all_url": "/user/me/all-todo-lists"
   }
 }
