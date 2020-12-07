@@ -1,7 +1,7 @@
 const base_url = '/api/v1';
 
 // User URLs
-const user_url = '/user';
+const user_url = `${base_url}/user`;
 const user_register_url = `${user_url}/register`;
 const user_login_url = `${user_url}/login`;
 const user_current_url = `${user_url}/me`;
