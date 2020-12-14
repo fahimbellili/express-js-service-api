@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "DEBUG=express-todo-api:* nodemon ./bin/www",
+    "dev": "DEBUG=express-todo-api:* nodemon ./bin/server.js",
     "lint": "eslint --ext .js bin/ lib/**/**",
-    "start": "DEBUG=express-todo-api:* node ./bin/www",
+    "start": "DEBUG=express-todo-api:* node ./bin/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "husky": {
